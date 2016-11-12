@@ -24,7 +24,7 @@ For more information on installing R packages, please refer to [Installing R Pac
 
 Exploratory Data Analysis (EDA) is the numerical and graphical examination of data characteristics and relationships before formal, rigorous statistical analyses are applied.
 
-EDA can lead to insights, which may uncover to other questions, and eventually predictive models. It also is an important ìline of defenseî against bad data and is an opportunity to notice that your assumptions or intuitions about a data set are violated.
+EDA can lead to insights, which may uncover to other questions, and eventually predictive models. It also is an important ‚Äúline of defense‚Äù against bad data and is an opportunity to notice that your assumptions or intuitions about a data set are violated.
 
 
 ### What will I learn?
@@ -59,12 +59,12 @@ As John Tukey stated, "The combination of some data and an aching desire for an 
 
 ### Step One - Choose your Data Set
 
-First, you will choose a data set from the Data Set Options document. You should choose a data set based on your prior experiences in programming and working with data. The data set you choose will not increase or decrease your chances of passing the final project. In general, tidy data sets are easier to work with since each variable is a column and each row is an observation; thereís no data cleaning or wrangling involved. We offer guidance below for choosing your data set. Time estimates include reading all of the project instructions and rubric, conducting the analysis, and submitting the final project.
+First, you will choose a data set from the Data Set Options document. You should choose a data set based on your prior experiences in programming and working with data. The data set you choose will not increase or decrease your chances of passing the final project. In general, tidy data sets are easier to work with since each variable is a column and each row is an observation; there‚Äôs no data cleaning or wrangling involved. We offer guidance below for choosing your data set. Time estimates include reading all of the project instructions and rubric, conducting the analysis, and submitting the final project.
 
 
 ### Step Two - Get Organized
 
-Eventually youíll want to submit your project (and share it with friends, family, and employers). Get organized before you begin. We recommend creating a single folder on your desktop that will eventually contain:
+Eventually you‚Äôll want to submit your project (and share it with friends, family, and employers). Get organized before you begin. We recommend creating a single folder on your desktop that will eventually contain:
 
   1. The RMD file that contains the analysis, final plots and summary, and reflection (in that order)
   2. The HTML file that will be knitted from your RMD file
@@ -82,15 +82,15 @@ Keep track of your thoughts as you go (in an RMD file).
 
 You will want to document your exploration and analysis in an RMD file which you will submit. That file should be formatted in markdown and should contain (in order):
 
-- 1. _A stream-of-consciousness analysis and exploration of the data._  
+ 1. _A stream-of-consciousness analysis and exploration of the data._  
      a. Headings and text should organize your thoughts and reflect your analysis as you explored the data.  
      b. Plots in this analysis do not need to be polished with labels, units, and titles; these plots are exploratory (quick and dirty). They should, however, be of the appropriate type and effectively convey the information you glean from them.  
-     c. You can iterate on a plot in the same R chunk, but you donít need to show every plot iteration in your analysis.
+     c. You can iterate on a plot in the same R chunk, but you don‚Äôt need to show every plot iteration in your analysis.
 
-- 2. _A section at the end called "Final Plots and Summary"_  
+ 2. _A section at the end called "Final Plots and Summary"_  
       You will select three (3) plots from your analysis to polish and share in this section. The three plots should show different trends and should be polished with appropriate labels, units, and titles (see the Project Rubric for more information). These plots give insight into the data set that you investigated. One or more of these plots should reveal a finding or pattern in the data set.
 
-- 3. _A final section called "Reflection"_  
+ 3. _A final section called "Reflection"_  
       This should contain a few sentences about your struggles, successes, and ideas for future exploration on the data set (see the Project Rubric for more information).
 
 
@@ -112,20 +112,20 @@ Please download the project template file to get started on your analysis.
 **Formatting Notes**  
 We want you to submit a readable RMD file. To help you prepare your project, please look over the following notes.
 
-- 1. The knitted HTML output should be readable. Be sure to review your knitted HTML file and check that the code and plots appear correct.
+ 1. The knitted HTML output should be readable. Be sure to review your knitted HTML file and check that the code and plots appear correct.
 
-- 2. Comments for R code in a RMD or R-Markdown file are included inside of r blocks by using a hash or pound symbol.  
+ 2. Comments for R code in a RMD or R-Markdown file are included inside of r blocks by using a hash or pound symbol.  
 ```
 {r}  
 library(ggplot2)  
 # This is an example of a comment that is not actual code.
 ```
 
-- 3. In a RMD or R-Markdown file, use of the hash or pound symbol ("#") outside of r blocks of code creates an H1 header.
+ 3. In a RMD or R-Markdown file, use of the hash or pound symbol ("#") outside of r blocks of code creates an H1 header.
 
 You won't see the hash symbol in front of the text above once you knit the HTML file. See [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax) for additional help with Markdown formatting. 
 
-- 4. Check that all your plots can be viewed and that they are sized appropriately for the output, which is the knitted HTML file.
+ 4. Check that all your plots can be viewed and that they are sized appropriately for the output, which is the knitted HTML file.
 
 ---
 
