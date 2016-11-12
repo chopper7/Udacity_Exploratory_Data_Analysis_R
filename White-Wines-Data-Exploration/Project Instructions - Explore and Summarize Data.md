@@ -112,20 +112,20 @@ Please download the project template file to get started on your analysis.
 **Formatting Notes**  
 We want you to submit a readable RMD file. To help you prepare your project, please look over the following notes.
 
- 1. The knitted HTML output should be readable. Be sure to review your knitted HTML file and check that the code and plots appear correct.
+* The knitted HTML output should be readable. Be sure to review your knitted HTML file and check that the code and plots appear correct.
 
- 2. Comments for R code in a RMD or R-Markdown file are included inside of r blocks by using a hash or pound symbol.  
+* Comments for R code in a RMD or R-Markdown file are included inside of r blocks by using a hash or pound symbol.  
 ```
 {r}  
 library(ggplot2)  
 # This is an example of a comment that is not actual code.
 ```
 
- 3. In a RMD or R-Markdown file, use of the hash or pound symbol ("#") outside of r blocks of code creates an H1 header.
+* In a RMD or R-Markdown file, use of the hash or pound symbol ("#") outside of r blocks of code creates an H1 header.
 
 You won't see the hash symbol in front of the text above once you knit the HTML file. See [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax) for additional help with Markdown formatting. 
 
- 4. Check that all your plots can be viewed and that they are sized appropriately for the output, which is the knitted HTML file.
+* Check that all your plots can be viewed and that they are sized appropriately for the output, which is the knitted HTML file.
 
 ---
 
