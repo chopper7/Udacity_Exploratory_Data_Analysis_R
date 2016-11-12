@@ -1,0 +1,509 @@
+title: "Problem Set 3 Explore One Variable"  
+output: html_document  
+===========================================
+
+## Set up
+
+Go to working directory Load the ggplot package  
+```{r set things up} 
+#setwd("D:/DOCUMENTS/LEARNING/DAND/DAND4 EDA - R/PS3_One_Variable")
+```
+
+--------------------------
+
+# PS3-1, QUIZ: DIAMONDS
+
+### Load the diamonds data set in RStudio. As a reminder, you can use these
+commands to load the diamonds data set. Some data sets come with R. You can load
+these data sets by typing `data(DATA_SET_NAME)`. The "diamonds" data set comes
+with the *ggplot* package.
+
+```{r load diamonds}
+library(ggplot2)
+data(diamonds)
+```
+
+You need to run these commands each time you launch RStudio to access the
+diamonds data set. RStudio won't remember which packages and data sets you
+loaded unless you change your preferences or save your workspace.
+
+You should notice that the diamonds data set will be listed as a 'Promise' in the workspace. *Promise* is a special object in R, and you need to run a command on the data to fully load the data set.
+
+Try running a summary: `summary(diamonds)`
+
+You can learn more about the diamonds data set by typing `?diamonds`
+
+Read the help file to determine the best color for the diamonds data set. When you run `diamonds$color` you will notice that the levels of color are set as "D
+< E < F < ..." This is an ordering of the colors.
+
+__How many observations are in the data set?__ `dim(diamonds)` or `?diamonds` #
+preferred
+
+__How many variables are in the data set?__ `dim(diamonds)` or `?diamonds` #
+preferred
+
+__How many ordered factors are in the data set?__ 3 `str(diamonds)`
+
+__ What letter represents the best color for a diamond?__ I read the help file 
+`?diamonds`
+
+"color: diamond colour, from J (worst) to D (best)"
+
+========================================================
+
+***
+
+
+# PS3-2, Price Histogram
+
+Create a histogram of the price of all the diamonds in the diamond data set. 
+TYPE YOUR CODE BELOW THE LINE  
+-------------------------------
+
+`qplot(x = price, data = diamonds)`
+
+
+========================================================
+
+***
+
+# PS3-3, Price Histogram Summary
+
+Describe the shape and center of the price distribution. Include summary
+statistics like the mean and median.
+
+`summary(diamonds$price)`
+
+Shape of the distribution is skewed right with a long tail. The mean is 2401. 
+The median is 3933.
+
+
+========================================================
+
+***
+
+# PS3-4, Diamond Counts
+
+__How many diamonds cost less that $500?__ `summary(diamonds$price < 500)` Mode 
+FALSE    TRUE    NA's logical   52211    1729       0
+
+__How many diamonds cost less that $250?__ `summary(diamonds$price < 250)` Mode 
+FALSE    NA's logical   53940       0
+
+__How many diamonds cost $15,000 or more?__ `summary(diamonds$price >= 15000)` 
+Mode   FALSE    TRUE    NA's logical   52284    1656       0
+
+
+========================================================
+
+***
+
+# PS3-5, Cheaper Diamonds
+
+Explore the largest peak in the price histogram you created earlier.
+
+Try limiting the x-axis, altering the bin width, and setting different breaks on
+the x-axis.
+
+Go to the discussions to share your thoughts and discover what other people
+find.
+
+You can save images by using the `ggsave()` command. `ggsave()` will save the
+last plot created. For example... `qplot(x = price, data = diamonds)` 
+`ggsave('priceHistogram.png')`
+
+Submit your final code when you are ready.
+
+TYPE YOUR CODE BELOW THE LINE -----------------------------
+
+```{r cheaper diamonds}
+# limit the x-axis, alter binwidth, set breaks 
+qplot(x = price, data = diamonds, binwidth = 50, 
+      color = I('black'), fill = I('#9085BA')) + 
+  scale_x_continuous(limits = c(250, 1250), breaks = seq(300, 1200, 100))
+
+ggsave('cheaperHistogram.png')
+```
+
+========================================================
+
+***
+
+# PS3-6, Price-by-Cut Histograms
+
+Break up the histogram of diamond prices, by their "cut". You should have five
+histograms in separate panels on your resulting plot.
+
+TYPE YOUR CODE BELOW THE LINE -----------------------------
+
+```{r price by cut histo}
+qplot(x = price, data = diamonds, binwidth = 50) +
+  scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 2000)) + 
+  facet_wrap(~cut, ncol = 1)
+```
+
+
+========================================================
+
+***
+
+# PS3-7, Price-by-Cut
+
+`summary(diamonds$price)` 
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+326    950    2401    3933    5324   18820
+
+Which cut has the highest priced diamond?
+`subset(diamonds, diamonds$price == max(diamonds$price))`
+carat     cut color clarity depth table price   x    y   
+z 27750  2.29 Premium     I     VS2  60.8    60 18823 8.5 8.47 5.16 
+Answer: "Premium"
+
+Which cut has the lowest priced diamond?
+`subset(diamonds, diamonds$price == min(diamonds$price))` 
+carat     cut color clarity depth table price    x    y   
+z 1  0.23   Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43 2  0.21 Premium
+E     SI1  59.8    61   326 3.89 3.84 2.31 
+Answer: "Premium" and "Ideal"
+
+Which cut has the lowest median price?
+`by(diamonds$price, diamonds$cut, median)`# median price, by cut
+diamonds$cut: Fair [1] 3282 
+diamonds$cut: Good [1] 3050.5 
+diamonds$cut: VeryGood [1] 2648 
+diamonds$cut: Premium [1] 3185
+diamonds$cut: Ideal [1] 1810
+Answer: "Ideal"
+
+*Note: Could also have answered all 3 questions by running the following code:*
+`by(diamonds$price, diamonds$cut, summary)` # summarize price, by cut
+
+diamonds$cut: Fair Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 337    2050   
+3282    4359    5206   18570 diamonds$cut: Good Min. 1st Qu.  Median    Mean 3rd
+Qu.    Max. 327    1145    3050    3929    5028   18790 diamonds$cut: Very Good 
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 336     912    2648    3982    5373
+18820 diamonds$cut: Premium Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 326   
+1046    3185    4584    6296   18820 diamonds$cut: Ideal Min. 1st Qu.  Median   
+Mean 3rd Qu.    Max. 326     878    1810    3458    4678   18810
+
+
+========================================================
+
+***
+
+# PS3-8, Scales and Multiple Histograms
+
+**How to display multiple plots with different y-axis scales**
+
+In the previous exercise, we looked at the summary statistics for diamond price
+by cut.
+
+In the output table, the median and quartiles are reasonably close to each
+other. This means the distributions should be somewhat similar, but the
+histograms we created don't show that. The 'Fair' and 'Good' diamonds appear to
+have different distributions compared to the better cut diamonds. They seem
+somewhat uniform on the left with long tails on the right.
+
+Let's look in to this... Look up the documentation for `facet_wrap` in R Studio.
+Then, scroll back up and add a parameter to `facet_wrap` so that the y-axis in
+the histograms is not fixed. You want the y-axis to be different for each
+histogram.
+
+If you want a hint, check out the Instructor Notes. [ggplot2 Free scales with
+facets](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/#free-scales)
+
+ref: PS3-6 {r price by cut histo}
+
+```{r multi scales}
+ggplot(diamonds, aes(x=price)) + geom_histogram(binwidth = 50) + 
+  scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 2500)) +
+  facet_wrap(~cut, scales='free_y')
+```
+
+Grader response: Great Job! Are your y-axis scales different on some of the
+panels? It's a good idea to consider the scales when you create plots.
+
+
+========================================================
+
+***
+
+# PS3-9, Price per Carat by Cut
+
+Create a histogram of price per carat and facet it by cut. You can make
+adjustments to the code from the previous exercise to get started.
+
+Adjust the bin width and transform the scale of the x-axis using log10.
+
+**Hints** Hint 1: You use the price and carat variables in the parameter for x.
+What expression gives you price per carat?
+
+Hint 2: For long tailed distributions, you can add a ggplot layer such as
+`scale_x_log10()` to transform the variable.
+
+ENTER YOUR CODE BELOW THIS LINE -------------------------------
+
+```{r price per carat by cut}
+qplot(x = price/carat, data = diamonds, binwidth = 0.1) + 
+  facet_wrap(~cut, scales='free_y') + scale_x_log10()
+```
+
+**Lessons Learned:** I learned in this problem that only a binwidth under 1.0 
+would produce a meaningful histogram. Sure it has somthing to do with
+logarithms, and also maybe logs combined with a fraction (price/carat)-- *NAAHH*,
+probably just because its logs. But note, you're only using a logarithmic scale
+because the plain histogram plots *had long tails*.
+
+
+========================================================
+
+***
+
+# PS 3-10, Price Box Plots
+
+Investigate the price of diamonds using box plots, numerical summaries, and one
+of the following categorical variables: cut, clarity, or color.
+
+There won't be a solution video for this exercise so go to the discussion thread
+for either BOXPLOTS BY CLARITY, _BOXPLOT BY COLOR_, or BOXPLOTS BY CUT to
+share you thoughts and to see what other people found.
+
+__I chose PRICE and COLOR__
+
+**Box Plots** HINT: For boxplots, we use -- the *y* parameter for the
+*continuous* data -- the *x* parameter for the *categorical* data
+
+__*Very useful, relevant link!:*__ [Boxplots are ideally suited for visualizing
+data variability](http://bxhorn.com/ggplot-boxplots/)
+
+and maybe, 
+"http://www.cookbook-r.com/Graphs/Plotting_distributions_(ggplot2)/#box-plots" 
+and maybe, "http://www.statmethods.net/graphs/boxplot.html"
+
+```{r price color boxplots} 
+ggplot(diamonds, aes(x=factor(color), y=price)) + 
+  geom_boxplot(aes(fill=factor(color)), outlier.size = 0.2) 
+ggsave('3-10_ggboxplot_smalldot-outliers.png')
+```
+
+```{r qplot with colored boxes} 
+qplot(x=factor(color), y=price, data=diamonds, geom='boxplot', fill=color) 
+ggsave('3-10_qplot_box_colored.png')
+```
+
+Mark a spot at the mean (see cookbook-r.com reference, above) 
+```{r boxplot with mean marked} 
+qplot(x=color, y=price, data=diamonds, geom='boxplot',fill=color) + 
+  stat_summary(fun.y=mean, geom="point", shape=1, size=3) 
+ggsave('3-10_qplot_box_with_mean.png')
+```
+
+```{r save as above, with ggplot} 
+ggplot(diamonds, aes(x=factor(color), y=price)) + 
+  geom_boxplot(aes(fill=factor(color))) + 
+  stat_summary(fun.y=mean, geom="point", shape=5, size=2)
+```
+
+```{r Numerical summaries}
+table(diamonds$color) # count of observations by color
+by(diamonds$price, diamonds$color, summary) # summarize price by color
+```
+
+**My Comments:** Min and Max prices hardly vary between colors. All of them are
+more dispersed in the "high" half of prices (above median), but particularly
+D-G. Less price Variance in better (D-F) colors and more variance in worse
+colors (G-J.) Yet the better colors have more outliers; that might pull their
+means higher; see marked-mean plots.
+
+
+========================================================
+
+***
+
+# PS 3-11, Interquartile Range - IQR
+
+You can use the function `IQR()` to find the interquartile range. Pass it a
+subset of the diamonds data frame.
+
+For example... `IQR(subset(diamonds, price <1000)$price)`
+
+Remember, `subset` returns a *data frame*, so we need to use $price on the end
+to access that variable.
+
+- - - - - - - - - - - - - - - - - - - - Price range of middle 50% of color D
+diamonds? `by(diamonds$price, diamonds$color=='D', summary)`
+Look at the TRUE line returned.
+
+Price range of middle 50% of color J diamonds? `by(diamonds$price,
+diamonds$color=='J', summary)` Look at the TRUE line returned.
+
+IQR of diamonds with the best color? `IQR(subset(diamonds, color=='D')$price)`
+
+IQR of diamonds with the worst color? `IQR(subset(diamonds, color=='J')$price)` 
+- - - - - - - - - - - - - - - - - - - -
+
+alternately, IQR of all each and every color: `by(diamonds$price,
+diamonds$color, IQR)`
+
+
+========================================================
+
+***
+
+# PS 3-12, Price per Carat Box Plots by Color
+
+Investigate the price per carat of diamonds across the different colors of
+diamonds using *boxplots*.
+
+Save images by using the ggsave() command.
+
+```{r price-carat box by color}
+qplot(x=factor(color), y = price/carat, data=diamonds, 
+      geom='boxplot', fill=color, outlier.size = 0.1) 
+ggsave('3-12_ppcarat_by_color_boxplots.png')
+```
+
+Comparing price per carat by color to the previous plot of price (alone) by
+color, I noticed difference once you change price to price/carat: *Price per
+Carat boxplots much more similar across colors than they were when we only
+looked at price. *Less different medians, less different variability. *The IQRs, too, are much more similar across colors, now. *Price per Carat basically brings the "better" colors' boxplots "down" to the level of the "worse" colors' plots. *Using price per carat on y-axis removes a lot of outliers from the "better" colors.
+
+
+========================================================
+
+***
+
+# PS 3-13 Carat Frequency Polygon
+
+Investigate the weight of the diamonds (carat) using a frequency polygon. Use
+different bin widths to see how the frequency polygon changes. What carat size
+has a count greater than 2000?
+
+```{r}
+qplot(x=carat, data=diamonds, binwidth=0.1, geom='freqpoly') + 
+scale_x_continuous(breaks=seq(0, 5.0, 0.1)) + 
+  scale_y_continuous(breaks = seq(0, 10000, 2000))
+```
+
+For the question, we are looking for counts of exact value - try starting out
+with a larger bin width and making it smaller to see how the plot changes, then focus in on the values of most interest.
+
+**Lessons Learned:** Dealing with _**continuous** data on the x-axis_ in a
+_frequency polygon_ lets you assign a __binwidth less than 1__. I'd still been
+thinking in terms of _discrete_ bin counts as in a bar plot.
+
+
+========================================================
+
+***
+
+# PS 3-15, Gapminder Data quiz
+
+The Gapminder website contains over 500 data sets with information about the
+world's population. You can find a link to the Gapminder website in the
+Instructor Notes.
+
+Your task is to download a data set of your choice and create 2-5 plots that
+make use of the techniques from Lesson 3.
+
+You might use a **simple histogram**, a **boxplot split over a categorical
+variable**, or a **frequency polygon**. The choice is yours! Once you've
+completed your investigation, create a post in the discussions that includes: 1. any questions you answered, your observations, and summary statistics  
+2. snippets of code that created the plots  
+3. links to the images of your plots  
+
+You can save images by using the ggsave() command.
+
+**Hints**  
+The following command may be helpful for some of the Gapminder Data
+sets, once it's been converted to csv format:  
+`read.csv('data.csv', header = T, row.names = 1, check.names = F)`
+
+You may want to look at additional function arguments in the help file for the
+`read.table()` family for additional tools that can help you read in data.
+
+If you want to exchange the rows and columns of your dataframe, it will also be useful to know the transpose function, t().
+
+Copy and paste all of the code that you used for your investigation, and submit it when you are ready  
+---------------------------------
+
+
+========================================================
+
+***
+
+# PS 3-16, Exploring Friends' Birthdays
+
+Your task is to investigate the distribution of your friends' birth months and
+days.
+
+Here some questions you could answer, and we hope you think of others.
+
+**How many people share your birthday? Do you know them?**
+**Which month contains the most number of birthdays?**
+**How many birthdays are in each month?**
+**Which day of the year has the most number of birthdays?**
+**Do you have at least 365 friends that have birthdays on every day of the
+year?**
+
+You'll need to export the birthdays to a csv file (or use the csv file we've
+provided a link to in the Instructor Notes)
+
+Once you load the data into R Studio, you can use the `strptime()` function to
+extract the birth months and birth days. We recommend looking up the 
+documentation for the function and finding examples online.
+
+- - - - - - - - -
+
+```{r 3-16 exploring birthdays}
+# Import the data file
+tb <- read.csv('birthdaysExample.csv')
+
+# tb$dates is a factor, and when I try to convert it to date it converts all
+# values to NA; so, try to convert from factor to vector of characters
+tb$dates <- as.character(tb$dates)
+
+# Convert to date format
+tb$monthDay <- as.Date(tb$dates, format = "%m/%d")
+
+# Month column
+tb$month <- as.numeric(format(tb$monthDay, format = '%m'))
+
+# Day column
+tb$day <- as.numeric(format(tb$monthDay, format = '%d'))
+
+# Count my birthday
+myBday <- ifelse(tb$dates == '5/23/14', 1, 0)
+sum(myBday)
+```
+
+Month with most birthdays?
+```{r}
+qplot(x = month, data = tb, binwidth = 1) + 
+  scale_x_continuous(breaks = seq(1, 12, 1))
+```
+
+Answer: March
+
+
+How many birthdays are in each month?  
+by(tb$monthDay, tb$month, FUNCTION???)  
+```{r}
+ggplot(tb, aes(x=month), labels = ..count..) + 
+  geom_bar() + 
+  stat_bin(geom="text", aes(label=..count.., vjust=-1))
+ggsave('birthdays per month.png')
+```
+
+Which day of the year has the most number of birthdays?  
+(I found two methods online)  
+```{r most bdays 1}
+datefreq <- data.frame(table(tb$monthDay))
+datefreq[which.max(datefreq$Freq), ]
+```
+         Var1 Freq  
+37 2016-02-06    8  
+
+Answer: February 6th.
+
+

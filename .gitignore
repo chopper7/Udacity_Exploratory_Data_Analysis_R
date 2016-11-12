@@ -1,0 +1,13 @@
+#gitignore
+
+# link files
+*.url
+White-Wines-Project/*.url
+
+# Final Project folder
+White-Wines-Project/.Rdata
+White-Wines-Project/.Rhistory
+White-Wines-Project/DA4 Data Set Options.html
+White-Wines-Project/P4_White_Wines_Data_Exploration.html
+White-Wines-Project/Udacity Reviews P4.pdf
+White-Wines-Project/wineQualityWhites.csv
