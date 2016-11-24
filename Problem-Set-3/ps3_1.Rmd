@@ -330,8 +330,8 @@ For example... `IQR(subset(diamonds, price <1000)$price)`
 Remember, `subset` returns a *data frame*, so we need to use $price on the end
 to access that variable.
 
-- - - - - - - - - - - - - - - - - - - - Price range of middle 50% of color D
-diamonds? `by(diamonds$price, diamonds$color=='D', summary)`
+range of middle 50% of color D diamonds?  
+`by(diamonds$price, diamonds$color=='D', summary)`  
 Look at the TRUE line returned.
 
 Price range of middle 50% of color J diamonds? `by(diamonds$price,
