@@ -2,6 +2,10 @@
 
 ### Visually Analyze and Summarize Data Sets
 
+A preview (see White Wines Data Exploration):
+
+![sample plot](White-Wines-Data-Exploration/images/univariate_alcohol.png)
+
 #### An [online course offered by Udacity.](https://www.udacity.com/course/data-analysis-with-r--ud651)  
 Click the link for more details. The course is part of Udacity's _Data Analyst Nanodegree_ program.
 
